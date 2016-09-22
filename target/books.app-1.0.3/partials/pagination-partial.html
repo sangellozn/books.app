@@ -1,0 +1,21 @@
+<div style="text-align: center">
+	<nav>
+		<ul class="pagination">
+			<li>
+			    <a href="javascript:void(0)" aria-label="Previous"
+			        ng-click="(pagination.currentPage - 1) > 0 ? getPage(pagination.currentPage - 1) : getPage(0)">
+			        <span aria-hidden="true">&laquo;</span>
+			    </a>
+			</li>
+			<li ng-class="{active : i == pagination.currentPage}" ng-repeat="i in [] | range:pagination.nbPage">
+			     <a href="javascript:void(0)" ng-click="getPage(i)">{{i + 1}}</a>
+			</li>
+			<li>
+			     <a href="javascript:void(0)" aria-label="Next"
+			         ng-click="(pagination.currentPage + 1) < pagination.nbPage ? getPage(pagination.currentPage + 1) : getPage(pagination.nbPage - 1)">
+			         <span aria-hidden="true">&raquo;</span>
+		         </a>
+		    </li>
+		</ul>
+	</nav>
+</div>

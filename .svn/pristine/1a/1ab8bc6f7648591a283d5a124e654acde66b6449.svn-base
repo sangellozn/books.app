@@ -1,0 +1,83 @@
+package info.san.biblio.app.model.entry;
+
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name = "saison", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "idx", "serie_id" })
+})
+public class SaisonEntry implements Entry {
+
+	private static final long serialVersionUID = 4623516803354338023L;
+
+	@Id
+	@Column(length = 36, nullable = false)
+	private String id;
+
+	@Basic(optional = false)
+	@Column(length = 50, nullable = false)
+	private String name;
+
+	@Basic(optional = false)
+	@Column(nullable = false)
+	private int idx;
+
+	@ManyToOne(cascade = { }, fetch = FetchType.EAGER, optional = false)
+	private SerieEntry serie;
+
+	@OneToMany(cascade = { }, fetch = FetchType.EAGER, mappedBy = "saison", orphanRemoval = true)
+	private Collection<EpisodeEntry> episodes;
+
+	public SaisonEntry() {
+		this.episodes = new HashSet<EpisodeEntry>();
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getIdx() {
+		return this.idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public SerieEntry getSerie() {
+		return this.serie;
+	}
+
+	public void setSerie(SerieEntry serie) {
+		this.serie = serie;
+	}
+
+	public Collection<EpisodeEntry> getEpisodes() {
+		return this.episodes;
+	}
+
+}

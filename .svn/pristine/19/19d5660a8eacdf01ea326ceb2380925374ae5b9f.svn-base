@@ -1,0 +1,72 @@
+package info.san.biblio.app.rest.dto.serie;
+
+import info.san.biblio.app.rest.RestPathConstants;
+import info.san.biblio.app.rest.dto.AbstractBasicDTO;
+import info.san.biblio.app.rest.dto.Rel;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class SaisonEntryDTO extends AbstractBasicDTO {
+
+	private static final long serialVersionUID = 7587632650251215235L;
+
+	private String id;
+
+	private String name;
+
+	private int idx;
+
+	@JsonIgnore
+	private String serieId;
+
+	public SaisonEntryDTO() {
+		// Nothing
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getIdx() {
+		return this.idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public String getSerieId() {
+		return this.serieId;
+	}
+
+	public void setSerieId(String serieId) {
+		this.serieId = serieId;
+	}
+
+	@Override
+	protected Collection<Rel> defineRels() {
+		Collection<Rel> rels = new ArrayList<Rel>();
+
+		rels.add(new Rel(RestPathConstants.SAISONS_BASE_PATHS, this.serieId + "/saisons/" + this.id, "saison", RelScope._self));
+		rels.add(new Rel(RestPathConstants.SERIES_BASE_PATH, this.serieId, "serie", RelScope._links));
+
+		return rels;
+	}
+
+}

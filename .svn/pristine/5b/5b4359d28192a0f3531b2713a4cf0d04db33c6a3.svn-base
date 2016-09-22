@@ -1,0 +1,142 @@
+/**
+ *
+ */
+package info.san.biblio.app.model.entry;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+/**
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+@Entity
+@Table(name = "livre")
+public class LivreEntry implements Entry {
+
+	private static final long serialVersionUID = -8073125155029296505L;
+
+	@Id
+	@Column(length = 13, nullable = false)
+	private String isbn;
+
+	@Column(length = 50, nullable = false)
+	private String titre;
+
+	@Column(length = 50, nullable = false, name = "titre_original")
+	private String titreOriginal;
+
+	@Column(length = 20, nullable = false)
+	private Langue langue;
+
+	@Column
+	@Lob
+	private String resume;
+
+	@Column(name = "nb_page", nullable = false)
+	private int nbPage;
+
+	@Column(nullable = false)
+	private Format format;
+
+	@Column(length = 50, nullable = false)
+	private String editeur;
+
+	@Column(length = 255, nullable = false)
+	private String imagePath;
+
+	@ManyToMany
+	private List<AuteurEntry> auteurs;
+
+	@ManyToOne
+	private SagaEntry saga;
+
+	@Override
+	public Object getId() {
+		return this.isbn;
+	}
+
+	public String getIsbn() {
+		return this.isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getTitre() {
+		return this.titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public String getTitreOriginal() {
+		return this.titreOriginal;
+	}
+
+	public void setTitreOriginal(String titreOriginal) {
+		this.titreOriginal = titreOriginal;
+	}
+
+	public Langue getLangue() {
+		return this.langue;
+	}
+
+	public void setLangue(Langue langue) {
+		this.langue = langue;
+	}
+
+	public String getResume() {
+		return this.resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+
+	public int getNbPage() {
+		return this.nbPage;
+	}
+
+	public void setNbPage(int nbPage) {
+		this.nbPage = nbPage;
+	}
+
+	public Format getFormat() {
+		return this.format;
+	}
+
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+
+	public String getEditeur() {
+		return this.editeur;
+	}
+
+	public void setEditeur(String editeur) {
+		this.editeur = editeur;
+	}
+
+	public String getImagePath() {
+		return this.imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public List<AuteurEntry> getAuteurs() {
+		return this.auteurs;
+	}
+
+}

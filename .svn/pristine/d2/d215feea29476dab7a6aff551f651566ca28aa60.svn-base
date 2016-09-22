@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="booksApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Books.app - Gestion de bibliothèque</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/books.app.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="alert alert-danger alert-dismissible" role="alert"
+        id="app-error" style="display: none">
+        <button type="button" class="close" aria-label="Close"
+            onclick="$('#app-error').hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Erreur :</strong> Exception lors de l'execution de la requête.
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert"
+        id="app-confirm" style="display: none">
+        <button type="button" class="close" aria-label="Close"
+            onclick="$('#confirm').hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Succès :</strong> Action effectuée avec succès !
+    </div>
+    
+	<div class="container">
+
+		<!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+		<div class="masthead">
+			<h3 class="text-muted">Books.app</h3>
+			<nav>
+				<ul class="nav nav-justified" id="ul-menu">
+					<li id="li-home" class="active"><a href="#/">Home</a></li>
+					<li id="li-rechercher"><a href="#/rechercher">Rechercher</a></li>
+					<li id="li-explorer"><a href="#/explorer">Explorer</a></li>
+					<li id="li-livres"><a href="#/livres">Livres</a></li>
+					<li id="li-auteurs"><a href="#/auteurs">Auteurs</a></li>
+					<li id="li-sagas"><a href="#/sagas">Sagas</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<div ng-view>
+
+			
+		</div>
+
+		<!-- Site footer -->
+		<div>
+			<footer class="footer">
+				<p>&copy; 2016 Anthésite Solution - Books.app (1.0.0).</p>
+			</footer>
+        </div>
+	</div>
+	<!-- /container -->
+
+	<script type="text/javascript" src="js/jQuery-2.2.4.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="angular-1.5.7/angular.js"></script>
+	<script type="text/javascript" src="angular-1.5.7/angular-route.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
+	
+</body>
+</html>

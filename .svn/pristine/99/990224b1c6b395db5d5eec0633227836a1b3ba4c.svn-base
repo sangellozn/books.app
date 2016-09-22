@@ -1,0 +1,43 @@
+package info.san.biblio.app.model.listener;
+
+import info.san.biblio.app.Persistence;
+import info.san.biblio.app.event.serie.SerieCreatedEvent;
+import info.san.biblio.app.event.serie.SerieUpdatedEvent;
+import info.san.biblio.app.model.entry.SerieEntry;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.axonframework.eventhandling.annotation.EventHandler;
+
+public class SerieListener {
+
+	private EntityManager em = Persistence.getInstance().createEntityManager();
+
+	@EventHandler
+	public void handle(SerieCreatedEvent e) {
+		EntityTransaction t = this.em.getTransaction();
+
+		t.begin();
+
+		this.em.persist(new SerieEntry(e.getId(), e.getName()));
+
+		t.commit();
+	}
+
+	@EventHandler
+	public void handle(SerieUpdatedEvent e) {
+		EntityTransaction t = this.em.getTransaction();
+
+		t.begin();
+
+		SerieEntry s = this.em.find(SerieEntry.class, e.getId());
+
+		s.setName(e.getName());
+
+		this.em.persist(s);
+
+		t.commit();
+	}
+
+}

@@ -1,0 +1,15 @@
+package info.san.biblio.app.event.serie;
+
+public class SaisonDeletedEvent {
+
+	private String id;
+
+	public SaisonDeletedEvent(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+}

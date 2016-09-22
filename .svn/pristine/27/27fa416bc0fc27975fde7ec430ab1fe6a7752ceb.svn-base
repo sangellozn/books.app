@@ -1,0 +1,11 @@
+var anthesite = function() {
+	
+};
+
+anthesite.prototype.showAndHideAfter = function(id, duration, effect) {
+	var $id = '#' + id;
+	$($id).show();
+	setTimeout(function() {
+		$($id).hide(effect);
+	}, duration);
+};

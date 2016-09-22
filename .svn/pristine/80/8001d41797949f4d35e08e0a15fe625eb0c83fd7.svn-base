@@ -1,0 +1,60 @@
+<div>
+    <h1>Les Livres :</h1>
+    <a href="#/livres/add">+ Ajouter un livre</a> <br />
+    <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error.error">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Erreur !</strong> Une erreur est survenue : {{error.error}} - {{error.message}}
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#ISBN</th>
+                    <th>Titre</th>
+                    <th>Nb. Pages</th>
+                    <th>Format</th>
+                    <th>Langue</th>
+                    <th>Editeur</th>
+                    <th>Je l'ai&nbsp;?</th>
+                    <th>Lu&nbsp;?</th>
+                    <th>Créée le</th>
+                    <th>Dernière M.A.J. le</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="livre in livres">
+                    <td>{{livre.id}}</td>
+                    <td>{{livre.titre}}</td>
+                    <td>{{livre.nbPage}}</td>
+                    <td>{{livre.format}}</td>
+                    <td>{{livre.langue}}</td>
+                    <td>{{livre.editeur}}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="livre.possede"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-show="!livre.possede"></span>
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="livre.lu"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-show="!livre.lu"></span>
+                    </td>
+                    <td>{{livre.createdAt | date: 'dd/MM/yyyy à HH:mm:ss'}}</td>
+                    <td>{{livre.updatedAt | date: 'dd/MM/yyyy à HH:mm:ss'}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="edit(livre.id)">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs"
+                            ng-click="del(livre.id)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p ng-show="livres.length == 0">Aucune donnée !</p>
+    </div>
+</div>

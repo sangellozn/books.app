@@ -1,0 +1,63 @@
+<div>
+	<!-- Jumbotron -->
+	<div ng-include src="'partials/error-partial.html'"></div>
+	<div class="jumbotron">
+		<h1>Books.app</h1>
+		<p class="lead">Gérer sa bibliothèque et parcourir les livres à
+			lire ou à acquérir !</p>
+		<p>
+			<a class="btn btn-lg btn-success" href="#/ajouter" role="button">Recherche
+				de nouveaux livres !</a>
+		</p>
+	</div>
+
+    <p>Il y a actuellement {{nbBooks | number}} livres répertoriés.</p>
+
+	<h1>Les derniers livres ajoutés :</h1>
+	<p ng-show="books.length == 0">Aucun livre dans la bibliothèque !</p>
+	<div class="row">
+		<div class="col-lg-4" ng-repeat="book in books">
+			<div class="panel panel-default" style="height: 390px">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-5">
+							<div class="thumbnail-result">
+								<img ng-src="data:image/png;base64,{{book.imageBase64}}" ng-show="book.imageBase64"
+									style="height: 185px; width: 130px" title="{{book.titre}}" />
+							    <img src="imgs/no-image.png" ng-show="!book.imageBase64"
+                                    style="height: 185px; width: 130px" title="{{book.titre}}" />
+								<p>
+									<strong>ISBN :</strong> {{book.isbn}}
+								</p>
+								<p>
+									<strong>Auteur(s) :</strong> <span
+										ng-repeat="auteur in book.auteurs">{{auteur.prenom}} {{auteur.nom}},
+									</span>
+								</p>
+								<p>
+									<strong>Nombre de pages :</strong> <span>{{book.nbPage}}</span>
+								</p>
+								<p>
+									<strong>Editeur :</strong> <span>{{book.editeur}}</span>
+								</p>
+								<p ng-show="book.saga != null">
+                                    <strong>Saga :</strong> <span>{{book.saga.nom}}</span>
+                                </p>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<h4>{{book.titre}}</h4>
+							<h5 ng-show="book.titre != book.titreOriginal">{{book.titreOriginal}}</h5>
+							<a ng-href="#/livres/{{book.isbn}}/edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
+							<br />
+							<p class="description">
+								{{book.resume | limitTo:450}}<span
+									ng-show="book.resume.length > 450">[...]</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

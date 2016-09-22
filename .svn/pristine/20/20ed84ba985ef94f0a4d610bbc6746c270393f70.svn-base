@@ -1,0 +1,11 @@
+package info.san.books.app.command.handler;
+
+import info.san.books.app.ddd.livre.Saga;
+
+public class SagaCommandHandler extends AbstractBasicCommandHandler<Saga, String> {
+
+	public SagaCommandHandler() {
+		super(Saga.class);
+	}
+
+}

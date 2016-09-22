@@ -1,0 +1,57 @@
+package info.san.biblio.app.rest.dto.serie;
+
+import info.san.biblio.app.rest.RestPathConstants;
+import info.san.biblio.app.rest.dto.AbstractBasicDTO;
+import info.san.biblio.app.rest.dto.Rel;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class SerieEntryDTO extends AbstractBasicDTO {
+
+	private static final String REL_BASE = RestPathConstants.SERIES_BASE_PATH;
+
+	private static final long serialVersionUID = 3278118920181311630L;
+
+	private String id;
+
+	private String name;
+
+	private Collection<SaisonEntryDTO> saisons;
+
+	public SerieEntryDTO() {
+		this.saisons = new ArrayList<SaisonEntryDTO>();
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Collection<SaisonEntryDTO> getSaisons() {
+		return this.saisons;
+	}
+
+	@Override
+	protected Collection<Rel> defineRels() {
+		Collection<Rel> rels = new ArrayList<Rel>();
+
+		rels.add(new Rel(SerieEntryDTO.REL_BASE, this.id, "serie", RelScope._self));
+		rels.add(new Rel(SerieEntryDTO.REL_BASE, this.id + "/" + RestPathConstants.SAISONS_BASE_PATHS, "saison", RelScope._links));
+
+		return rels;
+	}
+
+}

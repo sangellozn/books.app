@@ -1,0 +1,39 @@
+package info.san.biblio.app.rest;
+
+import info.san.biblio.app.rest.dto.serie.AuteurEntryDTO;
+
+import javax.ws.rs.core.Response;
+
+public class AuteurRest extends AbstractBasicRest<AuteurEntryDTO> {
+
+	@Override
+	public Response findAll(String orderBy, int offset, int limit) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response find(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response create(AuteurEntryDTO entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response update(String id, AuteurEntryDTO entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response delete(String id, AuteurEntryDTO entry) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

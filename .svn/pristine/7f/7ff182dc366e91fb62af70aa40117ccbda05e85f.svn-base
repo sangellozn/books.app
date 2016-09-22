@@ -1,0 +1,57 @@
+package info.san.books.app.model.entry;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+@Entity
+@Table(name = "SAGA")
+public class SagaEntry implements Entry {
+
+	private static final long serialVersionUID = 487561650468027734L;
+
+	@Id
+	@Column(length = 36, nullable = false, name = "ID")
+	private String id;
+
+	@Column(length = 100, nullable = false, unique = true, name = "NOM")
+	private String nom;
+
+	@OneToMany(mappedBy = "saga")
+	private List<LivreEntry> livres;
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return this.nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public List<LivreEntry> getLivres() {
+		return this.livres;
+	}
+
+	public void setLivres(List<LivreEntry> livres) {
+		this.livres = livres;
+	}
+
+}

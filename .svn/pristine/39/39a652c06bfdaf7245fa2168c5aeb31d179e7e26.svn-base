@@ -1,0 +1,5 @@
+package info.san.books.app.rest.dto.visitor;
+
+public class SagaEntryDTOVisitor {
+
+}

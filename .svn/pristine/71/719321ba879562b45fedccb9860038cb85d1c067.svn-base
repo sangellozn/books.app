@@ -1,0 +1,15 @@
+package info.san.books.app.command.auteur;
+
+public class AuteurDeleteCommand {
+
+	private String id;
+
+	public AuteurDeleteCommand(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+}

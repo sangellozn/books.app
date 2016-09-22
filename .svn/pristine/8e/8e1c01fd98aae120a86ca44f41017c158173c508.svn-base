@@ -1,0 +1,26 @@
+package info.san.biblio.app;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
+public class Persistence {
+	
+	private final EntityManagerFactory emf;
+	
+	private static final class Holder {
+		private static final Persistence INSTANCE = new Persistence();
+	}
+	
+	private Persistence() {
+		this.emf = javax.persistence.Persistence.createEntityManagerFactory("biblio.app");
+	}
+
+	public static Persistence getInstance() {
+		return Holder.INSTANCE;
+	}
+	
+	public EntityManager createEntityManager() {
+		return this.emf.createEntityManager();
+	}
+	
+}

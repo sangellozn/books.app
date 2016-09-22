@@ -1,0 +1,5 @@
+package info.san.biblio.app.rest.dto.visitor;
+
+public class AuteurEntryDTOVisitor {
+
+}

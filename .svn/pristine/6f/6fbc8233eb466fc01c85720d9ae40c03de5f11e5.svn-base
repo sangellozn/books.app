@@ -1,0 +1,13 @@
+package info.san.books.app.ddd.livre;
+
+import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
+import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
+
+public class Saga extends AbstractAnnotatedAggregateRoot<String> {
+
+	private static final long serialVersionUID = -3426154283544678759L;
+
+	@AggregateIdentifier
+	private String id;
+
+}

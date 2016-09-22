@@ -1,0 +1,22 @@
+package info.san.biblio.app.command.serie;
+
+public class SerieUpdateCommand {
+
+	private String id;
+
+	private String name;
+
+	public SerieUpdateCommand(String id, String name) {
+		this.id   = id;
+		this.name = name;
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+}

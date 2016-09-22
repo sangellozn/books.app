@@ -1,0 +1,11 @@
+package info.san.books.app.query;
+
+import java.util.List;
+
+public interface QueryRepository<E> {
+
+	public List<E> findAll(Ordering ordering, Page page);
+
+	public E find(Object id);
+
+}

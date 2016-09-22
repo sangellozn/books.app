@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+/**
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+package info.san.books.app.event.saga;

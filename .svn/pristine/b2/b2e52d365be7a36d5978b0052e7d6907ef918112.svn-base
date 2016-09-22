@@ -1,0 +1,29 @@
+package info.san.biblio.app.rest;
+
+import info.san.biblio.app.model.entry.Entry;
+import info.san.books.app.AxonContext;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.axonframework.commandhandling.gateway.CommandGateway;
+
+@Consumes(value = { MediaType.APPLICATION_JSON })
+@Produces(value = { MediaType.APPLICATION_JSON })
+public abstract class AbstractBasicRest<E extends Entry> {
+
+	protected CommandGateway commandGateway = AxonContext.getInstance().getCommandGateway();
+
+	public abstract Response findAll(String orderBy, int offset, int limit);
+
+	public abstract Response find(String id);
+
+	public abstract Response create(E entry);
+
+	public abstract Response update(String id, E entry);
+
+	public abstract Response delete(String id, E entry);
+
+}

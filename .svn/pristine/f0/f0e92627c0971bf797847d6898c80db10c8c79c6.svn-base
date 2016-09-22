@@ -1,0 +1,38 @@
+package info.san.biblio.app.command.serie;
+
+import java.util.UUID;
+
+public class SerieRegisterSaisonCommand {
+
+	private String serieId;
+
+	private String saisonId;
+
+	private String saisonName;
+
+	private Integer saisonIdx;
+
+	public SerieRegisterSaisonCommand(String serieId, String saisonName, Integer saisonIdx) {
+		this.serieId    = serieId;
+		this.saisonName = saisonName;
+		this.saisonIdx  = saisonIdx;
+		this.saisonId   = UUID.randomUUID().toString();
+	}
+
+	public String getSerieId() {
+		return this.serieId;
+	}
+
+	public String getSaisonId() {
+		return this.saisonId;
+	}
+
+	public String getSaisonName() {
+		return this.saisonName;
+	}
+
+	public Integer getSaisonIdx() {
+		return this.saisonIdx;
+	}
+
+}

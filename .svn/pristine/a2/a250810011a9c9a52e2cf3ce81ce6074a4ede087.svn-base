@@ -1,0 +1,114 @@
+<div>
+	<h1>Explorer la bibliothèque :</h1>
+	<div class="container">
+		<div class="btn-group" role="group" id="display-scope-button">
+			<button type="button" class="btn btn-primary" id="all-books"
+				ng-click="display('all-books')">Tous les livres</button>
+			<button type="button" class="btn btn-default" id="by-auteurs"
+				ng-click="display('by-auteurs')">Par Auteurs</button>
+			<button type="button" class="btn btn-default" id="by-sagas"
+				ng-click="display('by-sagas')">Par Sagas</button>
+			<button type="button" class="btn btn-default" id="to-read"
+				ng-click="display('to-read')">A lire</button>
+			<button type="button" class="btn btn-default" id="to-get"
+				ng-click="display('to-get')">A obtenir</button>
+			&nbsp; <img src="imgs/ajax-loader.gif" alt="Ajax-Loading"
+				style="display: none; vertical-align: bottom;" id="ajax-loader" />
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="container" ng-show="displayScope == 'by-auteurs'">
+		<table>
+			<tbody>
+				<tr>
+					<td>Selectionner l'Auteur :&nbsp;</td>
+					<td><select id="select-auteurs"
+						ng-options='(auteur.prenom + " " + auteur.nom) for auteur in auteurs | orderBy: ["prenom", "nom"] track by auteur.id'
+						ng-model="selectedAuteur"
+						ng-change="display('by-auteurs')">
+					</select></td>
+				</tr>
+			</tbody>
+		</table>
+		<br /><br />
+	</div>
+	<div class="container" ng-show="displayScope == 'by-sagas'">
+		<table>
+			<tbody>
+				<tr>
+					<td>Selectionner la Saga :&nbsp;</td>
+					<td><select id="select-sagas"
+						ng-options='saga.nom for saga in sagas | orderBy: "nom" track by saga.id'
+						ng-model="selectedSaga"
+						ng-change="display('by-sagas')">
+					</select></td>
+				</tr>
+			</tbody>
+		</table>
+		<br /><br />
+	</div>
+	<div class="container" ng-show="livres.length > 0">
+		<p>Trier par : <a href="javascript:void(0)" ng-click="sorting('titre')">Titre</a>
+		  &nbsp;<span class="glyphicon glyphicon-chevron-up" aria-hidden="true" ng-show="sort.prop == 'titre' && !sort.reverse"></span>
+		  <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-show="sort.prop == 'titre' && sort.reverse"></span>
+		  &nbsp;&bull;&nbsp;<a href="javascript:void(0)" ng-click="sorting('nbPage')">Nombre de pages</a>
+		  &nbsp;<span class="glyphicon glyphicon-chevron-up" aria-hidden="true" ng-show="sort.prop == 'nbPage' && !sort.reverse"></span>
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-show="sort.prop == 'nbPage' && sort.reverse"></span>
+		<br />
+		<br />
+		<div ng-repeat="livre in livres | orderBy : sort.prop : sort.reverse">
+			<div ng-class="{true : 'row'}[$index % 3 == 2]">
+				<div class="col-lg-4">
+					<div class="panel panel-default" style="height: 390px">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-5">
+									<div class="thumbnail-result">
+										<img ng-src="data:image/png;base64,{{livre.imageBase64}}"
+											ng-show="livre.imageBase64"
+											style="height: 185px; width: 130px" title="{{livre.titre}}" />
+										<img src="imgs/no-image.png" ng-show="!livre.imageBase64"
+											style="height: 185px; width: 130px" title="{{livre.titre}}" />
+										<p>
+											<strong>ISBN :</strong> {{livre.isbn}}
+										</p>
+										<p>
+											<strong>Auteur(s) :</strong> <span
+												ng-repeat="auteur in livre.auteurs">{{auteur.prenom}}
+												{{auteur.nom}}, </span>
+										</p>
+										<p>
+											<strong>Nombre de pages :</strong> <span>{{livre.nbPage}}</span>
+										</p>
+										<p>
+											<strong>Editeur :</strong> <span>{{livre.editeur}}</span>
+										</p>
+										<p ng-show="livre.saga != null">
+											<strong>Saga :</strong> <span>{{livre.saga.nom}}</span>
+										</p>
+									</div>
+								</div>
+								<div class="col-lg-7">
+									<h4>{{livre.titre}}</h4>
+									<h5 ng-show="livre.titre != livre.titreOriginal">{{livre.titreOriginal}}</h5>
+									<a ng-href="#/livres/{{livre.isbn}}/edit"
+										class="btn btn-default btn-xs"><span
+										class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
+									<br />
+									<p class="description">
+										{{livre.resume | limitTo:450}}<span
+											ng-show="livre.resume.length > 450">[...]</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" ng-show="livres.length == 0">
+	   <p>Aucun livre ne correspond à ce filtre.
+	</div>
+</div>

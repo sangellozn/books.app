@@ -1,0 +1,15 @@
+package info.san.biblio.app.rest;
+
+public final class RestPathConstants {
+
+	public static final String SERIES_BASE_PATH = "series";
+
+	public static final String SAISONS_BASE_PATHS = "saisons";
+
+	public static final String EPISODE_BASE_PATHS = "episodes";
+
+	private RestPathConstants() {
+		// Nothing
+	}
+
+}

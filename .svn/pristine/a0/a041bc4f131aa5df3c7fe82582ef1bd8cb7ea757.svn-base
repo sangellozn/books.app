@@ -1,0 +1,175 @@
+<div>
+    <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error.error">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Erreur !</strong> Une erreur est survenue : {{error.error}} - {{error.message}}
+    </div>
+	<h1>Ajouter / Modifier un livre :</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Infos sur le livre</h3>
+					</div>
+					<div class="panel-body">
+						<form name="form_livre">
+							<div class="form-group">
+								<label for="isbn">ISBN :</label> <input type="text"
+									class="form-control" id="isbn" name="isbn" placeholder="ISBN"
+									ng-model="livre.isbn" ng-required="true" ng-pattern="isbn_pattern" />
+							</div>
+							<div class="form-group">
+								<label for="titre">Titre :</label> <input type="text"
+									class="form-control" id="titre" name="titre"
+									placeholder="Titre du livre" ng-model="livre.titre"
+									ng-required="true" />
+							</div>
+							<div class="form-group">
+								<label for="titreOriginal">Titre Original :</label> <input
+									type="text" class="form-control" id="titreOriginal"
+									name="titreOriginal"
+									placeholder="Titre original du livre (si différent)."
+									ng-model="livre.titreOriginal" ng-required="false" />
+							</div>
+							<div class="form-group">
+								<label for="editeur">Editeur :</label> <input type="text"
+									class="form-control" id="editeur" name="editeur"
+									placeholder="Dupuis, Point, ..." ng-model="livre.editeur"
+									ng-required="true" />
+							</div>
+							<div class="form-group">
+								<label for="resume">Résumé :</label>
+								<textarea class="form-control" rows="5"
+									placeholder="Décrire ici le livre..." id="resume" name="resume"
+									ng-model="livre.resume" ng-required="false"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="format">Format :</label> 
+								<select ng-model="livre.format"
+									class="form-control" id="format">
+									<option value="POCHE">Poche</option>
+									<option value="RELIE">Relié</option>
+									<option value="BROCHE">Broché</option>
+									<option value="COMICS">Comics</option>
+									<option value="BD">Bande Dessinée</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="langue">Langue :</label> 
+								<select ng-model="livre.langue"
+									class="form-control" id="langue">
+									<option value="FRENCH">Français</option>
+									<option value="ENGLISH">English</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="nbPage">Nombre de pages :</label> <input
+									type="number" class="form-control" id="nbPage" name="nbPage"
+									ng-model="livre.nbPage" ng-required="true" />
+							</div>
+							<div class="form-group">
+								<label for="imagePath">URL illustration :</label> <input
+									type="text" class="form-control" id="imagePath"
+									name="imagePath" placeholder="http://..."
+									ng-model="livre.imagePath" ng-required="false" />
+							</div>
+							<div class="form-group">
+								<label for="possede">Je l'ai ?</label> <input type="checkbox"
+									class="form-control" id="possede" name="possede"
+									ng-model="livre.possede" ng-required="false" />
+							</div>
+							<div class="form-group">
+								<label for="lu">Je l'ai lu ?</label> <input type="checkbox"
+									class="form-control" id="lu" name="lu" ng-model="livre.lu"
+									ng-required="false" />
+							</div>
+							<a href="#/livres" class="btn btn-info">Retour</a>
+							<button type="submit" class="btn btn-primary"
+								ng-disabled="form_livre.$invalid" ng-click="validate()">Valider</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3>Auteurs</h3>
+							</div>
+							<div class="panel-body">
+								<h4>Assigner des auteurs :</h4>
+								<div class="form-group">
+									<label for="choosen-auteurs">Auteur(s):</label> 
+									<select
+									    multiple
+                                        ng-options='(auteur.prenom + " " + auteur.nom) for auteur in auteurs | orderBy: ["prenom", "nom"] track by auteur.id'
+                                        ng-model="livre.auteurs"
+                                        class="form-control" id="choosen-saga">
+                                        <option value=""></option>
+                                    </select>
+								</div>
+								<hr/>
+								<h4>Ajouter un auteur :</h4>
+								<form name="form_auteur">
+									<div class="form-group">
+										<label for="nom">Nom :</label> <input type="text"
+											class="form-control" id="nom" name="nom"
+											placeholder="Nom de l'auteur" ng-model="auteur.nom"
+											ng-required="true" />
+									</div>
+									<div class="form-group">
+										<label for="prenom">Prénom :</label> <input type="text"
+											class="form-control" id="prenom" name="prenom"
+											placeholder="Prénom de l'auteur" ng-model="auteur.prenom"
+											ng-required="true" />
+									</div>
+									<button type="submit" class="btn btn-primary"
+										ng-disabled="form_auteur.$invalid" ng-click="validateAuteur()">Valider</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3>Saga</h3>
+							</div>
+							<div class="panel-body">
+								<h4>Assigner une saga :</h4>
+								<div class="form-group">
+									<label for="choosen-saga">Saga :</label> 
+									<select
+									    ng-options="saga.nom for saga in sagas | orderBy:'nom' track by saga.id"
+									    ng-model="livre.saga"
+										class="form-control" id="choosen-saga">
+										<option value=""></option>
+									</select>
+								</div>
+								<hr />
+								<h4>Ajouter une saga :</h4>
+								<form name="form_saga">
+									<div class="form-group">
+										<label for="nom">Nom :</label> <input type="text"
+											class="form-control" id="nom" name="nom"
+											placeholder="Nom de la saga" ng-model="saga.nom"
+											ng-required="true" />
+									</div>
+									<button type="submit" class="btn btn-primary"
+										ng-disabled="form_saga.$invalid" ng-click="validateSaga()">Valider</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

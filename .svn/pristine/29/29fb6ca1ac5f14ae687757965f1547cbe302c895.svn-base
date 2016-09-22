@@ -1,0 +1,12 @@
+<div ng-controller="ExplorerController">
+	<h1>Explorer la bibliothèque :</h1>
+	<div class="container">
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-primary">Tous les livres</button>
+			<button type="button" class="btn btn-default">Par Auteurs</button>
+			<button type="button" class="btn btn-default">Par Sagas</button>
+			<button type="button" class="btn btn-default">A lire</button>
+			<button type="button" class="btn btn-default">A obtenir</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,36 @@
+package info.san.biblio.app.rest.dto.visitor;
+
+import info.san.biblio.app.model.entry.SaisonEntry;
+import info.san.biblio.app.model.entry.SerieEntry;
+import info.san.biblio.app.rest.dto.serie.SaisonEntryDTO;
+import info.san.biblio.app.rest.dto.serie.SerieEntryDTO;
+
+public class SerieEntryDTOVisitor {
+
+	private SerieEntryDTO dto;
+
+	public SerieEntryDTOVisitor() {
+		this.dto = new SerieEntryDTO();
+	}
+
+	public void visit(SerieEntry entry) {
+		this.dto.setId(entry.getId());
+		this.dto.setName(entry.getName());
+	}
+
+	public void visit(SaisonEntry entry) {
+		SaisonEntryDTO seDto = new SaisonEntryDTO();
+
+		seDto.setId(entry.getId());
+		seDto.setName(entry.getName());
+		seDto.setIdx(entry.getIdx());
+		seDto.setSerieId(entry.getSerie().getId());
+
+		this.dto.getSaisons().add(seDto);
+	}
+
+	public SerieEntryDTO getDto() {
+		return this.dto;
+	}
+
+}

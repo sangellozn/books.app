@@ -1,0 +1,31 @@
+package info.san.biblio.app.ddd.livre;
+
+import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
+import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
+
+/**
+ *
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+public class Livre extends AbstractAnnotatedAggregateRoot<String> {
+
+	private static final long serialVersionUID = 2179233922855550609L;
+
+	@AggregateIdentifier
+	private String id;
+
+	/*public Serie(String id, String name) {
+		this.apply(new SerieCreatedEvent(id, name));
+	}
+
+	public void update(String name) {
+		this.apply(new SerieUpdatedEvent(this.id, name));
+	}
+
+	@EventHandler
+	public void handle(SerieCreatedEvent e) {
+		this.id = e.getId();
+	}*/
+
+}

@@ -1,0 +1,20 @@
+/**
+ *
+ */
+package info.san.biblio.app.ddd.livre;
+
+import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
+import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
+
+/**
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+public class Auteur extends AbstractAnnotatedAggregateRoot<String> {
+
+	private static final long serialVersionUID = 7822862035780552538L;
+
+	@AggregateIdentifier
+	private String id;
+
+}

@@ -1,0 +1,18 @@
+/**
+ *
+ */
+package info.san.biblio.app.model.listener;
+
+import info.san.books.app.Persistence;
+
+import javax.persistence.EntityManager;
+
+/**
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+public class AbstractListener {
+
+	protected EntityManager em = Persistence.getInstance().createEntityManager();
+
+}

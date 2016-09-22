@@ -1,0 +1,36 @@
+package info.san.biblio.app.event.serie;
+
+public class SaisonCreatedEvent {
+
+	private String id;
+
+	private String name;
+
+	private String serieId;
+
+	private Integer idx;
+
+	public SaisonCreatedEvent(String id, String name, String serieId, Integer idx) {
+		this.id      = id;
+		this.name    = name;
+		this.serieId = serieId;
+		this.idx     = idx;
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getSerieId() {
+		return this.serieId;
+	}
+
+	public Integer getIdx() {
+		return this.idx;
+	}
+
+}

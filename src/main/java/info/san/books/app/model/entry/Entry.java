@@ -1,0 +1,16 @@
+/**
+ *
+ */
+package info.san.books.app.model.entry;
+
+import java.io.Serializable;
+
+/**
+ * @author ANGELLOZ-NICOUD Sébastien
+ *
+ */
+public interface Entry extends Serializable {
+
+	public Object getId();
+
+}
