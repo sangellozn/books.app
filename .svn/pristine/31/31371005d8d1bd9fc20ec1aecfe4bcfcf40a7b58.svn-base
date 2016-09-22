@@ -1,8 +1,0 @@
-<div class="alert alert-danger alert-dismissible" role="alert" style="margin-top: 10px;" ng-show="error.error">
-	<button type="button" class="close" data-dismiss="alert"
-		aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-	<strong>Erreur !</strong> Une erreur est survenue : {{error.error}} -
-	{{error.message}}
-</div>
