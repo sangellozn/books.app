@@ -22,3 +22,11 @@ This webapp can :
 ## Roadmap and possible improvements
 * Make generic REST services for basic operations.
 * Some UI improvements can be done : sort, filtering...
+
+## Deployement
+* To deploy this webapp, create a java DataSource to the database (jdbc/books) in server configuration file.
+* Run SQL script to create database schema and run schema update file to match the last schema version.
+* Build with maven the application as war file.
+* Put war file in server deployement folder.
+
+Tested on Tomcat 7 with MySQL 5.
