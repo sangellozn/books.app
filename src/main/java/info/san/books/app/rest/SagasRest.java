@@ -1,6 +1,3 @@
-/**
- *
- */
 package info.san.books.app.rest;
 
 import info.san.books.app.command.saga.SagaCreateCommand;
@@ -39,6 +36,30 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 /**
+ * MIT License
+ *
+ * Copyright (c) 2016 sangellozn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+/**
  * @author ANGELLOZ-NICOUD Sébastien
  *
  */
@@ -47,124 +68,124 @@ import javax.ws.rs.core.Response.Status;
 @Path(RestPathConstants.SAGAS_BASE_PATH)
 public class SagasRest extends AbstractBasicRest<SagaEntryDTO, SagaEntry> {
 
-	private SagaQueryRepository sagaQueryRepository = new SagaQueryRepository();
+    private SagaQueryRepository sagaQueryRepository = new SagaQueryRepository();
 
-	@GET
-	@Override
-	public Response findAll(@QueryParam("order") @DefaultValue("") String orderBy,
-			@QueryParam("p") @DefaultValue("0") int page,
-			@QueryParam("l") @DefaultValue("0") int limit,
-			@QueryParam("f") @DefaultValue("") String filter,
-			@QueryParam("count") @DefaultValue("false") boolean count) {
+    @GET
+    @Override
+    public Response findAll(@QueryParam("order") @DefaultValue("") String orderBy,
+            @QueryParam("p") @DefaultValue("0") int page,
+            @QueryParam("l") @DefaultValue("0") int limit,
+            @QueryParam("f") @DefaultValue("") String filter,
+            @QueryParam("count") @DefaultValue("false") boolean count) {
 
-		if (count) {
-			return super.count();
-		}
+        if (count) {
+            return super.count();
+        }
 
-		Collection<SagaEntryDTO> res = new ArrayList<SagaEntryDTO>();
-		Collection<SagaEntry> entries = this.sagaQueryRepository.findAll(new Ordering(orderBy),
-				new Page(page, limit), new Filter(filter));
+        Collection<SagaEntryDTO> res = new ArrayList<SagaEntryDTO>();
+        Collection<SagaEntry> entries = this.sagaQueryRepository.findAll(new Ordering(orderBy),
+                new Page(page, limit), new Filter(filter));
 
-		for (SagaEntry entry : entries) {
-			SagaEntryDTOVisitor visitor = new SagaEntryDTOVisitor();
-			entry.accept(visitor);
-			res.add(visitor.getDto());
-		}
+        for (SagaEntry entry : entries) {
+            SagaEntryDTOVisitor visitor = new SagaEntryDTOVisitor();
+            entry.accept(visitor);
+            res.add(visitor.getDto());
+        }
 
-		return Response.ok(res).build();
-	}
+        return Response.ok(res).build();
+    }
 
-	@GET
-	@Path("{id}")
-	@Override
-	public Response find(@PathParam("id") String id) {
-		SagaEntry entry = this.sagaQueryRepository.find(id);
+    @GET
+    @Path("{id}")
+    @Override
+    public Response find(@PathParam("id") String id) {
+        SagaEntry entry = this.sagaQueryRepository.find(id);
 
-		if (entry == null) {
-			return Response.status(Status.NOT_FOUND).entity(new BasicExceptionMessage("NotFound", "Saga with [id=" + id + "] does not exist.")).build();
-		}
+        if (entry == null) {
+            return Response.status(Status.NOT_FOUND).entity(new BasicExceptionMessage("NotFound", "Saga with [id=" + id + "] does not exist.")).build();
+        }
 
-		SagaEntryDTOVisitor visitor = new SagaEntryDTOVisitor();
-		entry.accept(visitor);
+        SagaEntryDTOVisitor visitor = new SagaEntryDTOVisitor();
+        entry.accept(visitor);
 
-		return Response.ok(visitor.getDto()).build();
-	}
+        return Response.ok(visitor.getDto()).build();
+    }
 
-	@POST
-	@Override
-	public Response create(SagaEntryDTO entry) {
-		try {
-			this.validateSagaEntry(entry);
-		} catch (ValidationException e) {
-			return Response.status(Status.BAD_REQUEST).entity(new BasicExceptionMessage("BadRequest", e.getMessage())).build();
-		}
+    @POST
+    @Override
+    public Response create(SagaEntryDTO entry) {
+        try {
+            this.validateSagaEntry(entry);
+        } catch (ValidationException e) {
+            return Response.status(Status.BAD_REQUEST).entity(new BasicExceptionMessage("BadRequest", e.getMessage())).build();
+        }
 
-		SagaCreateCommand cmd = new SagaCreateCommand(entry.getNom());
-		this.commandGateway.sendAndWait(cmd);
+        SagaCreateCommand cmd = new SagaCreateCommand(entry.getNom());
+        this.commandGateway.sendAndWait(cmd);
 
-		return Response.ok().location(URI.create(RestPathConstants.SAGAS_BASE_PATH + "/" + cmd.getId())).build();
+        return Response.ok().location(URI.create(RestPathConstants.SAGAS_BASE_PATH + "/" + cmd.getId())).build();
 
-	}
+    }
 
-	@PUT
-	@Path("{id}")
-	@Override
-	public Response update(@PathParam("id") String id, SagaEntryDTO entry) {
-		entry.setId(id);
+    @PUT
+    @Path("{id}")
+    @Override
+    public Response update(@PathParam("id") String id, SagaEntryDTO entry) {
+        entry.setId(id);
 
-		try {
-			this.validateSagaEntry(entry);
-		} catch (ValidationException e) {
-			return Response.status(Status.BAD_REQUEST).entity(new BasicExceptionMessage("BadRequest", e.getMessage())).build();
-		}
+        try {
+            this.validateSagaEntry(entry);
+        } catch (ValidationException e) {
+            return Response.status(Status.BAD_REQUEST).entity(new BasicExceptionMessage("BadRequest", e.getMessage())).build();
+        }
 
 
-		SagaUpdateCommand cmd = new SagaUpdateCommand(entry.getId(), entry.getNom());
-		this.commandGateway.sendAndWait(cmd);
+        SagaUpdateCommand cmd = new SagaUpdateCommand(entry.getId(), entry.getNom());
+        this.commandGateway.sendAndWait(cmd);
 
-		return Response.noContent().build();
-	}
+        return Response.noContent().build();
+    }
 
-	@DELETE
-	@Path("{id}")
-	@Override
-	public Response delete(@PathParam("id") String id) {
-		SagaDeleteCommand cmd = new SagaDeleteCommand(id);
+    @DELETE
+    @Path("{id}")
+    @Override
+    public Response delete(@PathParam("id") String id) {
+        SagaDeleteCommand cmd = new SagaDeleteCommand(id);
 
-		this.commandGateway.sendAndWait(cmd);
+        this.commandGateway.sendAndWait(cmd);
 
-		return Response.noContent().build();
-	}
+        return Response.noContent().build();
+    }
 
-	@GET
-	@Path("{id}/livres")
-	public Response getLivres(@PathParam("id") String id) {
-		SagaEntry entry = this.sagaQueryRepository.find(id);
+    @GET
+    @Path("{id}/livres")
+    public Response getLivres(@PathParam("id") String id) {
+        SagaEntry entry = this.sagaQueryRepository.find(id);
 
-		if (entry == null) {
-			return Response.status(Status.NOT_FOUND).entity(new BasicExceptionMessage("NotFound", "Saga with [id=" + id + "] does not exist.")).build();
-		}
+        if (entry == null) {
+            return Response.status(Status.NOT_FOUND).entity(new BasicExceptionMessage("NotFound", "Saga with [id=" + id + "] does not exist.")).build();
+        }
 
-		Collection<LivreEntryDTO> res = new ArrayList<LivreEntryDTO>();
+        Collection<LivreEntryDTO> res = new ArrayList<LivreEntryDTO>();
 
-		for (LivreEntry livre : entry.getLivres()) {
-			LivreEntryDTOVisitor visitor = new LivreEntryDTOVisitor();
-			livre.accept(visitor);
-			res.add(visitor.getDto());
-		}
+        for (LivreEntry livre : entry.getLivres()) {
+            LivreEntryDTOVisitor visitor = new LivreEntryDTOVisitor();
+            livre.accept(visitor);
+            res.add(visitor.getDto());
+        }
 
-		return Response.ok(res).build();
-	}
+        return Response.ok(res).build();
+    }
 
-	private void validateSagaEntry(SagaEntryDTO entry) throws ValidationException {
-		if (entry.getNom() == null || entry.getNom().trim().isEmpty()) {
-			throw new ValidationException("The Saga 'nom' cannot be null or empty.");
-		}
-	}
+    private void validateSagaEntry(SagaEntryDTO entry) throws ValidationException {
+        if (entry.getNom() == null || entry.getNom().trim().isEmpty()) {
+            throw new ValidationException("The Saga 'nom' cannot be null or empty.");
+        }
+    }
 
-	@Override
-	public QueryRepository<SagaEntry> getQueryRepository() {
-		return this.sagaQueryRepository;
-	}
+    @Override
+    public QueryRepository<SagaEntry> getQueryRepository() {
+        return this.sagaQueryRepository;
+    }
 
 }
